@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import moment from 'moment';
+
 import {
   Text,
   StyleSheet,
@@ -37,7 +39,7 @@ const Home = ({getPosts, postState, userDetails, route}) => {
   const fetchDetails = async () => {
     try {
       const response = await axios.get(
-        'http://250a-14-97-167-154.ngrok.io/v1/accounts/list/DOCTOR',
+        'http://9d81-14-97-167-154.ngrok.io/v1/accounts/list/DOCTOR',
       );
       setDoctors(response.data.data);
       console.log('response.data', response.data);
@@ -76,18 +78,21 @@ const Home = ({getPosts, postState, userDetails, route}) => {
         <Text style={styles.heading}>Doctors</Text>
       </View>
 
-      <FlatList
-        data={doctors}
-        renderItem={({item}) => (
-          <DoctorDisplayAvatar
-            name={item.full_name}
-            account_id={item.account_id}
-          />
-        )}
-        keyExtractor={item => item.account_id}
-        // ItemSeparatorComponent={Separator}
-        horizontal={true}
-      />
+      <SafeAreaView style={styles.doctorsContainer}>
+        <FlatList
+          data={doctors}
+          renderItem={({item}) => (
+            <DoctorDisplayAvatar
+              name={item.full_name}
+              account_id={item.account_id}
+              userDetails={userDetails}
+            />
+          )}
+          keyExtractor={item => item.account_id}
+          // ItemSeparatorComponent={Separator}
+          horizontal={true}
+        />
+      </SafeAreaView>
     </View>
   );
 };
@@ -132,18 +137,6 @@ Home.propTypes = {
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#ccc',
-    justifyContent: 'flex-start',
-    padding: 4,
-    flex: 1,
-  },
-  emptyContainer: {
-    flex: 1,
-    backgroundColor: '#ccc',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   mainContainer: {
     backgroundColor: '#1b262c',
     flex: 1,

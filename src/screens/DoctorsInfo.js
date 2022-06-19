@@ -11,11 +11,9 @@ import {
   FlatList,
   Pressable,
 } from 'react-native';
-import DoctorDisplayAvatar from '../DoctorDisplayAvatar';
-
 import {useWindowDimensions} from 'react-native';
 
-const DoctorsInfo = ({route, navigation}) => {
+const DoctorsInfo = ({route, navigation, userDetails}) => {
   const [doctorDetails, setDoctorDetails] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -25,7 +23,7 @@ const DoctorsInfo = ({route, navigation}) => {
   const fetchDetails = async () => {
     try {
       const response = await axios.get(
-        `http://250a-14-97-167-154.ngrok.io/v1/accounts/${route.params.doc_details.account_id}`,
+        `http://9d81-14-97-167-154.ngrok.io/v1/accounts/${route.params.doc_details.account_id}`,
       );
       setDoctorDetails(response.data.data);
       setIsLoading(false);
@@ -47,9 +45,14 @@ const DoctorsInfo = ({route, navigation}) => {
     }
   };
 
-  const handleAppoinmentBookingNavigation = () => {
-    navigation.navigate('Home');
-  };
+  function handleAppoinmentBookingNavigation() {
+    navigation.navigate('BookAppointment', {
+      doc_details: {
+        account_id: route.params.doc_details.account_id,
+        userDetails: route.params.doc_details.userDetails,
+      },
+    });
+  }
 
   useEffect(() => {
     fetchDetails();

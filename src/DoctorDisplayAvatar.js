@@ -2,13 +2,14 @@ import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const DoctorDisplayAvatar = ({name, account_id}) => {
+const DoctorDisplayAvatar = ({name, account_id, userDetails}) => {
   const navigation = useNavigation();
 
   function AllDoctorsNavigationHandler() {
     navigation.navigate('DoctorsInfo', {
       doc_details: {
         account_id: account_id,
+        userDetails: userDetails,
       },
     });
   }
@@ -17,19 +18,19 @@ const DoctorDisplayAvatar = ({name, account_id}) => {
       <Pressable
         onPress={AllDoctorsNavigationHandler}
         style={styles.avatarContainer}>
-        <View style={{textAlign: 'center'}}>
+        <View>
           <Image
             style={styles.avatarImg}
             source={require('./assets/avtar.jpeg')}
             accessibilityLabel={'Doctor Avatar'}
           />
-          <Text
-            numberOfLines={2}
-            style={styles.avatarName}
-            style={{flexShrink: 1, flexWrap: 'wrap'}}>
-            {name}
-          </Text>
         </View>
+        <Text
+          numberOfLines={1}
+          ellipsizeMode={'tail'}
+          style={styles.avatarName}>
+          {name.length < 35 ? `${name}` : `${name.substring(0, 32)}...`}
+        </Text>
       </Pressable>
     </View>
   );
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: '#F0F0F0',
+    justifyContent: 'space-around',
+
     width: 120,
   },
   avatarImg: {

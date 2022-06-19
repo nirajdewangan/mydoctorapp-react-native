@@ -15,6 +15,7 @@ import SignUp from './screens/SignUp';
 import Home from './screens/Home';
 import CustomHeader from './layout/CustomHeader';
 import DoctorsInfo from './screens/DoctorsInfo';
+import BookAppointment from './screens/BookAppointment';
 
 import {SET_USER, IS_AUTHTHENTICATED} from './action/action.types';
 
@@ -101,16 +102,16 @@ const App = ({authState}) => {
                 }}
               />
               <Stack.Screen
-                name="AddPost"
-                component={AddPost}
+                name="BookAppointment"
+                component={BookAppointment}
                 options={{
                   headerStyle: {
                     backgroundColor: '#0f4c75',
                   },
-                  title: 'My Doctor App',
+                  title: 'Book an appointment',
                   headerTitleStyle: {
                     textAlign: 'center',
-                    color: '#00b7c2',
+                    color: '#F4FCFA',
                   },
                 }}
               />

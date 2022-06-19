@@ -21,7 +21,7 @@ const Patient = ({route}) => {
   const fetchDetails = async () => {
     try {
       const response = await axios.get(
-        'http://250a-14-97-167-154.ngrok.io/v1/accounts/list/DOCTOR',
+        'http://9d81-14-97-167-154.ngrok.io/v1/accounts/list/DOCTOR',
       );
       setDoctors(response.data.data);
       console.log('response.data', response.data);
